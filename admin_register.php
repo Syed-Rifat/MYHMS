@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Prepare the SQL query to insert the data
-    $sql = "INSERT INTO admin_registration (
+    $sql = "INSERT INTO admin_registration_request (
         full_name, admin_id_number, email, phone, blood_group, 
         profile_picture, password, status
     ) VALUES (

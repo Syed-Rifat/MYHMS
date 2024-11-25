@@ -1,3 +1,14 @@
+<?php
+// Include the session file
+require_once 'admin_session.php';
+
+// Check if the user is already logged in, if yes, redirect to dashboard
+if (isLoggedIn()) {
+    redirectToDashboard();
+}
+
+// Rest of the login page logic
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +30,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Hall Management</a>
+            <a class="navbar-brand" href="#">My Hall</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,11 +45,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="contact.php">Contact</a>
                     </li>
-                    <!-- Add this to the navigation section -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="register_request.php">Submit Registration Request</a>
-                    </li>
-
                 </ul>
             </div>
         </div>
@@ -48,7 +54,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <h2>Welcome to the Hall Management System</h2>
+                <h2>Welcome to My Hall Management System</h2>
                 <p class="lead">Please select your login mode:</p>
                 <div class="mb-3">
                     <label class="form-label">Login As:</label>
@@ -70,7 +76,6 @@
                         <input type="password" class="form-control" id="studentPassword" name="password" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Login as Student</button>
-
                     <p class="mt-3">Don't have an account? <a href="student_register.php">Register here</a></p>
                     <p class="mt-3">Forgot your password? <a href="student_forgot_password.php">Recover it here</a></p>
                 </form>
@@ -88,7 +93,6 @@
                     <button type="submit" class="btn btn-primary">Login as Admin</button>
                     <p class="mt-3">Don't have an account? <a href="admin_register.php">Register here</a></p>
                     <p class="mt-3">Forgot your password? <a href="admin_forgot_password.php">Recover it here</a></p>
-                    
                 </form>
 
                 <!-- Teacher Login Form -->
@@ -117,15 +121,17 @@
     <script>
         function changeLoginForm() {
             var loginMode = document.getElementById("loginMode").value;
-            document.getElementById("studentLoginForm").classList.add("d-none");
-            document.getElementById("adminLoginForm").classList.add("d-none");
-            document.getElementById("teacherLoginForm").classList.add("d-none");
-
             if (loginMode === "student") {
                 document.getElementById("studentLoginForm").classList.remove("d-none");
+                document.getElementById("adminLoginForm").classList.add("d-none");
+                document.getElementById("teacherLoginForm").classList.add("d-none");
             } else if (loginMode === "admin") {
+                document.getElementById("studentLoginForm").classList.add("d-none");
                 document.getElementById("adminLoginForm").classList.remove("d-none");
+                document.getElementById("teacherLoginForm").classList.add("d-none");
             } else if (loginMode === "teacher") {
+                document.getElementById("studentLoginForm").classList.add("d-none");
+                document.getElementById("adminLoginForm").classList.add("d-none");
                 document.getElementById("teacherLoginForm").classList.remove("d-none");
             }
         }
